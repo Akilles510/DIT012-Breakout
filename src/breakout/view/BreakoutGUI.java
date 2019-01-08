@@ -168,10 +168,10 @@ public class BreakoutGUI extends Application implements IEventHandler {
     @Override
     public void onModelEvent(ModelEvent evt) {
         if (evt.type == ModelEvent.Type.BALL_HIT_PADDLE) {
-           // TODO Play a sound
+            new Assets().ballHitPaddle.play();
 
         } else if (evt.type == ModelEvent.Type.BALL_HIT_BRICK) {
-            // TODO Play a sound
+            new Assets().ballHitBrick.play();
         }
     }
 
