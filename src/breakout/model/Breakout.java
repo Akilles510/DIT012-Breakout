@@ -1,6 +1,10 @@
 package breakout.model;
 
 
+import breakout.event.EventBus;
+import breakout.event.ModelEvent;
+import breakout.view.Assets;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -55,6 +59,8 @@ public class Breakout {
         }
         else{
             if(paddle.hasBeenHit(ball, paddle)){
+                // Send ballHitPaddle
+                EventBus.INSTANCE.publish(new ModelEvent(ModelEvent.Type.BALL_HIT_PADDLE, new Assets().ballHitPaddle));
                 changeYDirectionPositive();
             }
             else if(hasCollidedWithBrick()){
@@ -135,7 +141,7 @@ public class Breakout {
     }
 
     public void brickCollisionHandling(){
-        // Ta reda på vart bollen bör ändra sig efter, så vi kan slopa changeDirectionOfBall
+        EventBus.INSTANCE.publish(new ModelEvent(ModelEvent.Type.BALL_HIT_BRICK, new Assets().ballHitBrick));
         points += brickToRemove.getPoints();
         bricks.remove(brickToRemove);
         changeDirectionOfBall();
